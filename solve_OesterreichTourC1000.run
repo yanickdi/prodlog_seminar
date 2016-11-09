@@ -1,5 +1,5 @@
 model orientieering.mod;
-data Instanzen/BundeslaenderTour.dat;
+data Instanzen/OesterreichTourC1000.dat;
  
 
 option solver gurobi;
