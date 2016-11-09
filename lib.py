@@ -39,3 +39,24 @@ def calculate_distance_matrix(point_list):
         for j in range(n):
             matrix[i][j] = euclidean_distance(point_list[i], point_list[j])
     return matrix
+    
+    
+def write_ampl_data_file(filename, data):
+    """data: a dictionary containing 'matrix', 'star_list', 'c_limit' and 'name'"""
+    matrix = data.get('matrix')
+    star_list = data.get('star_list')
+    c_limit = data.get('c_limit')
+    name = data.get('name')
+    
+    n = len(matrix)
+    out = 'param n := {};\n\n'.format(n);
+    out += 'param c:\n\n'
+    out += '{} :=\n'.format(' '.join([str(i+1) for i in range(n)]))
+    for i, line in enumerate(matrix):
+        out += '{} {}\n'.format(i+1, ' '.join([str(round(elem, 2)) if i != j else '.' for j, elem in enumerate(line)]))
+    out += ';\n'
+    out += 'param s := {};\n\n'.format( ' '.join([str(i+1) + ' ' + str(star) for i, star in enumerate(star_list)]))
+    out += 'param c_limit := {};\n'.format(c_limit)
+    
+    with open(filename, 'w') as f:
+        f.write(out)

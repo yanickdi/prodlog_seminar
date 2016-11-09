@@ -9,7 +9,7 @@ ALLOWED_GPS_RECTANGLE = [
 
 
 import sys
-from lib import create_matrix, print_matrix, random_number_from_interval
+from lib import create_matrix, print_matrix, random_number_from_interval, write_ampl_data_file
 from haversine import haversine
 
 def create_random_gps_points(number, bound_north_east, bound_south_west):
@@ -35,26 +35,7 @@ def calc_distance_matrix_from_point_list(point_list):
         for j in range(n):
             matrix[i][j] = haversine(point_list[i], point_list[j])
     return matrix
-    
-def write_ampl_data_file(filename, matrix, star_list, c_limit):
-    n = len(matrix)
-    out = 'param n := {};\n\n'.format(n);
-    out += 'param c:\n\n'
-    out += '{} :=\n'.format(' '.join([str(i+1) for i in range(n)]))
-    for i, line in enumerate(matrix):
-        out += '{} {}\n'.format(i+1, ' '.join([str(round(elem, 2)) if i != j else '.' for j, elem in enumerate(line)]))
-    out += ';\n'
-    out += 'param s := {};\n\n'.format( ' '.join([str(i+1) + ' ' + str(star) for i, star in enumerate(star_list)]))
-    out += 'param c_limit := {};\n'.format(c_limit)
-    
-    with open(filename, 'w') as f:
-        f.write(out)
      
-
-def runAmpl():
-    """Starts ampl and decodes the output"""
-    f = subprocess.check_output('ampl ' + AMPL_RUN_FILE).decode('utf-8').replace('\r', '')
-    print(f)
     
 def main():
     if len(sys.argv) != 3:

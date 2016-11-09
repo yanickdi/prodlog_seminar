@@ -32,14 +32,3 @@ s.t. miller_tucker_zemlin_1{i in 2..n}:
 
 s.t. miller_tucker_zemlin_2{i in 2..n, j in 2..n}:
     u[i] - u[j] + 1 <= (n-1)*(1-x[i,j]);
-
-data test_instanz.dat;
- 
-
-option solver gurobi;
-solve;
-option display_1col 10;
-option display_traspose -10;
-display x;
-display y;
-display sum{i in 1..n, j in 1..n} x[i,j] * c[i,j];
