@@ -1,4 +1,3 @@
-import itertools
 from collections import deque
 
 import lib
@@ -30,7 +29,7 @@ class OrienteeringBranchAndBoundTree:
             # todo: presolve node
             # todo: calculate lower bound at this node
             #if (node._vertex_length == 3):
-            #    print(node)
+            print(node)
             # branch at all child nodes and add each of them to our bfs queue:
             self._branch_at_node(node)
             for child in node._childs:
