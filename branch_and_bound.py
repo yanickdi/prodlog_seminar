@@ -11,7 +11,7 @@ def get_matrix_and_stars():
     all_cities = [vienna, graz, bregenz, linz]
     matrix = generate_data_file.calc_distance_matrix_from_point_list(all_cities)
     matrix = [[int(elem) for elem in line] for line in matrix]
-    return matrix, (0,5,7,10)
+    return matrix, (0,5,11,10)
     
 class OrienteeringBranchAndBoundTree:
     def __init__(self, matrix, stars, limit):
@@ -74,14 +74,37 @@ class OrienteeringBranchAndBoundTree:
 
 def greedy_start_solution(matrix, stars, limit):
     """ returns a simple start solution (nr. of stars we can collect)"""
-    cum_kilometers = 0
-    
+    star_tuple = list(zip(range(1, len(matrix)), stars[1:]))
+    star_tuple.sort(key=lambda k: k[1], reverse=True)
+    tour = []
+    stars_so_far = 0
+    def is_tour_feasible(tour):
+        cum_length = 0
+        test_tour = tour + [0]
+        last_node = 0
+        for node_index in test_tour:
+            cum_length += matrix[last_node][node_index]
+            last_node = node_index
+        if cum_length <= limit:
+            print(test_tour)
+            print(cum_length)
+            return True
+        else:
+            return False
+    for node_index, star_at_index in star_tuple:
+        check_tour = tour[:] + [node_index]
+        if is_tour_feasible(check_tour):
+            tour = check_tour
+            stars_so_far += star_at_index
+    return stars_so_far
     
     
 def main():
     matrix, stars = get_matrix_and_stars()
-    bnb = OrienteeringBranchAndBoundTree(matrix, stars, 1000)
-    bnb.start()
+    limit = 1100
+    bnb = OrienteeringBranchAndBoundTree(matrix, stars, limit)
+    #bnb.start()
+    print(greedy_start_solution(matrix, stars, limit))
     
 
 if __name__ == '__main__':
