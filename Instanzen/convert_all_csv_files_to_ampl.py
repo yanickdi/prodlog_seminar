@@ -38,6 +38,19 @@ def read_matrix_and_stars(file):
         
     return matrix, star_list
     
+def presolve(data):
+    print(data['name'])
+    print('Limit: {}'.format(data['c_limit']))
+    matrix = data['matrix']
+    n = len(matrix)
+    minimas = [min([matrix[i][j] for j in range(i+1, n)]) for i in range(n-1)]
+    minimas.sort()
+    cum = 0
+    for i in range(len(minimas)):
+        cum += minimas[i]
+        print(cum)
+    print()
+    print()
 
 def main():
     for csv in CSV_FILES:
@@ -49,7 +62,9 @@ def main():
             f.readline()
             data['matrix'], data['star_list'] = read_matrix_and_stars(f)
         outfile = csv.replace('.csv', '.dat')
-        write_ampl_data_file(outfile, data)
+        
+        presolve(data)
+        #write_ampl_data_file(outfile, data)
             
 if __name__ == '__main__':
     main()
