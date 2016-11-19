@@ -1,4 +1,5 @@
 import random
+from haversine import haversine
 
 def create_matrix(n, m, default_value=None):
     """Returns a nxm list of lists, where each value is None or default param"""
@@ -38,6 +39,14 @@ def calculate_distance_matrix(point_list):
     for i in range(n):
         for j in range(n):
             matrix[i][j] = euclidean_distance(point_list[i], point_list[j])
+    return matrix
+    
+def calculate_distance_matrix_from_gps(long_lat_list, earth_radius):
+    n = len(long_lat_list)
+    matrix = create_matrix(n, n)
+    for i, from_long_lat in enumerate(long_lat_list):
+        for j, to_long_lat in enumerate(long_lat_list):
+            matrix[i][j] = haversine(from_long_lat, to_long_lat, earth_radius)
     return matrix
     
     
