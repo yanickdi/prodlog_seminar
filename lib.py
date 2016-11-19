@@ -41,7 +41,7 @@ def calculate_distance_matrix(point_list):
             matrix[i][j] = euclidean_distance(point_list[i], point_list[j])
     return matrix
     
-def calculate_distance_matrix_from_gps(long_lat_list, earth_radius):
+def calculate_distance_matrix_from_gps(long_lat_list, earth_radius=None):
     n = len(long_lat_list)
     matrix = create_matrix(n, n)
     for i, from_long_lat in enumerate(long_lat_list):
@@ -115,3 +115,41 @@ def read_xml_file(infile):
         star = int(starNode.get('stars'))
         data['star_list'][i] = star
     return data
+    
+    
+def greedy_nearest_neighbour_heuristic(data):
+    """
+        This function tries to solve the Orientieering Problem starting at index 0.
+        At each step, it calculates stars/kilometer for each neighbour and picks the neighbour
+        with best stars/kilometer into its route
+        
+        Returns: A solution dictionary having keys:
+            tour:      like [0, 1, 2, 4, 0]
+            stars:      the amount of stars of the route
+            length:     length of the tour in cumulated distance
+    """
+    stars, matrix, n, limit = data['star_list'], data['matrix'], len(data['matrix']), data['c_limit']
+    tour = [0]
+    stars_in_tour = stars[0]
+    length_already_without_back = 0
+    was_node_added = True
+    while was_node_added:
+        # calculate ratios for all possible nodes (those who are left):
+        possible_points = zip(range(n), matrix[tour[-1]], stars)
+        possible_points = (point for point in possible_points if point[0] not in tour)
+        ratios = ((i, stars*1000/(dist+0.1)) for i, dist, stars in possible_points)
+        ratios = sorted(ratios, key=lambda k: k[1], reverse=True)
+        # try to insert the first best into tour
+        was_node_added = False
+        for node_nr, _ in ratios:
+            new_length = length_already_without_back + matrix[tour[-1]][node_nr] + matrix[node_nr][0]
+            if new_length <= limit:
+                tour.append(node_nr)
+                was_node_added = True
+                length_already_without_back = new_length - matrix[node_nr][0]
+                stars_in_tour += stars[node_nr]
+                break
+    # greedy solution is finished, return values
+    tour_length = length_already_without_back + matrix[tour[-1]][0]
+    tour.append(0)
+    return {'tour' : tour, 'stars': stars_in_tour, 'length': tour_length}

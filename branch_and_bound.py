@@ -1,17 +1,6 @@
 from collections import deque
 
 import lib
-import generate_data_file
-
-def get_matrix_and_stars():
-    vienna = (48.219685, 16.382111)
-    graz = (47.074990, 15.446288)
-    bregenz = (47.503429, 9.743213)
-    linz = (48.306904, 14.289620)
-    all_cities = [vienna, graz, bregenz, linz]
-    matrix = generate_data_file.calc_distance_matrix_from_point_list(all_cities)
-    matrix = [[int(elem) for elem in line] for line in matrix]
-    return matrix, (0,5,11,10)
     
 class OrienteeringBranchAndBoundTree:
     def __init__(self, matrix, stars, limit):
