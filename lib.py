@@ -69,3 +69,30 @@ def write_ampl_data_file(filename, data):
     
     with open(filename, 'w') as f:
         f.write(out)
+        
+def write_xml_file(outfile, data):
+    from xml.etree.ElementTree import Element, SubElement, tostring
+    from xml.dom import minidom
+    
+    root = Element('Instance')
+    root.set('limit', str(data['c_limit']))
+    root.set('name', data['name'])
+    root.set('number_of_nodes', str(len(data['matrix'])))
+    # distances:
+    distancesNode = SubElement(root, 'Distances')
+    for i, line in enumerate(data['matrix']):
+        for j, elem in enumerate(line):
+            elemNode = SubElement(distancesNode, 'distance',
+            attrib={'from' : str(i), 'to' : str(j), 'value' : str(data['matrix'][i][j])})
+    # stars:
+    starsNode = SubElement(root, 'Stars')
+    [SubElement(starsNode, 'star', attrib={'stars' : str(star), 'node' : str(i)}) for i, star in enumerate(data['star_list'])]
+    rough_string = tostring(root, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    with open(outfile, 'w', encoding='utf-8') as f:
+        f.write(reparsed.toprettyxml(indent=' '*4))
+        
+        
+def read_xml_file(infile):
+    """Returns a python data dictionary"""
+    
