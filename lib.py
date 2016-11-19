@@ -95,4 +95,23 @@ def write_xml_file(outfile, data):
         
 def read_xml_file(infile):
     """Returns a python data dictionary"""
+    import xml.etree.ElementTree as ET
     
+    data = {}
+    tree = ET.parse(infile)
+    root = tree.getroot()
+    data['name'] = root.get('name')
+    data['c_limit'] = int(root.get('limit'))
+    n = int(root.get('number_of_nodes'))
+    data['matrix'] = create_matrix(n, n)
+    for distanceNode in root.find('Distances'):
+        i = int(distanceNode.get('from'))
+        j = int(distanceNode.get('to'))
+        dist = float(distanceNode.get('value'))
+        data['matrix'][i][j] = dist
+    data['star_list'] = [0] * n
+    for starNode in root.find('Stars'):
+        i = int(starNode.get('node'))
+        star = int(starNode.get('stars'))
+        data['star_list'][i] = star
+    return data

@@ -12,6 +12,11 @@ class TestXml(unittest.TestCase):
     def test_read_xml_file(self):
         data = read_xml_file('../Instanzen/Welttour.xml')
         self.assertIsNotNone(data)
+        matrix = data['matrix']
+        self.assertEqual(len(matrix), 31)
+        stars = data['star_list']
+        self.assertEqual(stars[0], 0)
+        self.assertTrue(sum(stars) > 0)
 
 if __name__ == '__main__':
     unittest.main()
