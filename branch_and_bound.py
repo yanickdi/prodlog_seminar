@@ -1,6 +1,7 @@
 from collections import deque
 
 import lib
+from lower_bound_gurobi import LowerBoundSolver
     
 class OrienteeringBranchAndBoundTree:
     def __init__(self, data):
@@ -13,10 +14,10 @@ class OrienteeringBranchAndBoundTree:
         self._upper_bound = None
         self._best_solution = None
         self._nr_of_branch_nodes = 0
+        self._lb_solver = LowerBoundSolver(data)
         
     def solve(self):
         self._calc_upper_bound()
-        self._upper_bound -= 13
         count = 0
         queue = deque([self._root])
         while (len(queue) > 0):
@@ -41,31 +42,40 @@ class OrienteeringBranchAndBoundTree:
         than our actual best solution (the upper bound)"""
         if not self._is_node_possible(node):
             return False
-            
-        lower_bound = self._calc_lower_bound(node)
-        if lower_bound > self._upper_bound * (1):
-            # since we have a maximize problem
-            return True
-        else:
-            return False
         
-    def _calc_lower_bound(self, node):
-        """ what would be the best solution ? --> maximum stars to fetch possible"""
-        stars_so_far = sum(self._stars[i] for i in node._fixed_at_start)
-        nr_of_nodes_left = node._vertex_length - len(node._fixed_at_start)
-        if nr_of_nodes_left <= 0:
-            # we are at a leaf - the lower bound is its actual value
-            if stars_so_far > self._upper_bound:
-                print('new best solution found', stars_so_far, node._node_id)
-                print(node)
-                self._upper_bound = stars_so_far
-            return stars_so_far
+        if node._vertex_length - len(node._fixed_at_start) > 0:
+            lower_bound = self._lb_solver.calc_lower_bound(node._vertex_length, node._fixed_at_start)
+            #lower_bound = self._calc_lower_bound(node)
+            if lower_bound is not False and lower_bound > self._upper_bound * (1):
+                # since we have a maximize problem
+                return True
+            else:
+                return False
         else:
-            stars_possible = (i for i in range(self._nr_vertices) if i not in node._fixed_at_start)
-            stars_possible = sorted(stars_possible, reverse=True)
-            stars_possible = stars_possible[:nr_of_nodes_left]
-            assert len(stars_possible) == nr_of_nodes_left
-            return stars_so_far + sum(stars_possible)
+            #dont need a solver
+            self._calcLeafSolution(node)
+            return False
+            
+    def _calcLeafSolution(self, node):
+        """Returns False is not feasible"""
+        length = 0
+        stars = 0
+        actuals = node._fixed_at_start[:] + [0]
+        predecessors = [0] + node._fixed_at_start[:]
+        paths = list(zip(predecessors, actuals))[1:]
+        for pre, actual in paths:
+            length += self._matrix[pre][actual]
+            stars += self._stars[actual] #bug: the last star will be counted twice, but its ok, its alwas zero
+        if length <= self._limit:
+            if stars > self._upper_bound:
+                print('updated upper bound: ', stars)
+                print(node)
+                self._upper_bound = stars
+            return stars
+        else:
+            #infeasible
+            return False
+        #todo: sum of bla bla <= ..
             
     def _is_node_possible(self, node):
         # calculate the length already
@@ -121,6 +131,7 @@ class OrienteeringBranchAndBoundTree:
         result = lib.greedy_nearest_neighbour_heuristic(
             {'matrix' : self._matrix, 'star_list': self._stars, 'c_limit': self._limit})
         self._upper_bound = result['stars']
+        #self._upper_bound = 0
         print(self._upper_bound)
         self._best_solution = result
             
@@ -154,15 +165,3 @@ class OrienteeringBranchAndBoundTree:
                 return 'ROOT'
             else:
                 return '-'.join('{}'.format(elem+0) for elem in self._fixed_at_start)  + 'x'*(self._vertex_length - len(self._fixed_at_start))
-    
-    
-def main():
-    matrix, stars = get_matrix_and_stars()
-    limit = 1100
-    bnb = OrienteeringBranchAndBoundTree(matrix, stars, limit)
-    #bnb.start()
-    print(greedy_start_solution(matrix, stars, limit))
-    
-
-if __name__ == '__main__':
-    main()

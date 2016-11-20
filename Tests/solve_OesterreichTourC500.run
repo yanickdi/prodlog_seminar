@@ -1,5 +1,5 @@
-model orientieering.mod;
-data BundeslaenderTour_5_Knoten.dat;
+model orientieering_lp_relax.mod;
+data OesterreichTourC500.dat;
  
 
 option solver gurobi;
