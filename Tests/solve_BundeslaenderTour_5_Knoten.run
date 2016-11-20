@@ -1,0 +1,11 @@
+model orientieering.mod;
+data BundeslaenderTour_5_Knoten.dat;
+ 
+
+option solver gurobi;
+solve;
+option display_1col 10;
+option display_traspose -10;
+display x;
+display y;
+display sum{i in 1..n, j in 1..n} x[i,j] * c[i,j];

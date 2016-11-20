@@ -23,11 +23,27 @@ class TestGreedyHeuristic(unittest.TestCase):
     def test_greedy_nearest_neighbour_heuristic(self):
         data = self.create_test_instance()
         result = greedy_nearest_neighbour_heuristic(data)
-        self.assertEqual(result['stars'], 15)
+        self.assertTrue(result['stars'] >= 15)
+        self.assertTrue(result['length'] <= data['c_limit'])
         
-    def test_greedy_on_bundeslaende_tour(self):
-        data = read_xml_file('BundeslaenderTour.xml')
+    def test_greedy_on_bundeslaender_tour(self):
+        data = read_xml_file('../Instanzen/BundeslaenderTour.xml')
         result = greedy_nearest_neighbour_heuristic(data)
+        self.assertTrue(result['stars'] >= 13)
+        
+    def test_greedy_on_welt_tour(self):
+        data = read_xml_file('../Instanzen/Welttour.xml')
+        result = greedy_nearest_neighbour_heuristic(data)
+        #check nodes of tour
+        for node in result['tour']:
+            if node == 0:
+                self.assertEqual(result['tour'].count(node), 2)
+            else:
+                self.assertEqual(result['tour'].count(node), 1)
+        #check tour limit
+        self.assertTrue(result['length'] <= data['c_limit'])
+        #check star limit
+        self.assertTrue(result['stars'] <= sum(data['star_list']))
         print(result)
         
     def create_test_instance(self):
@@ -42,6 +58,4 @@ class TestGreedyHeuristic(unittest.TestCase):
         return {'matrix' : matrix, 'c_limit' : 1000, 'star_list' : stars}
 
 if __name__ == '__main__':
-    #unittest.main()
-    test = TestGreedyHeuristic()
-    test.test_greedy_on_bundeslaende_tour()
+    unittest.main()
