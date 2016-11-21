@@ -14,13 +14,11 @@ class TestLowerBoundGurobi(unittest.TestCase):
         #data = read_xml_file('BundeslaenderTour_5_Knoten.xml')
         data = read_xml_file('../Instanzen/OesterreichTourC500.xml')
         solver = LowerBoundSolver(data)
-        
         vertex_length = 7
         #fixed_at_start = [0, 3, 1, 19, 12, 20] #INFEASIBLE
         
-        fixed_at_start = [0, 3] #55
+        fixed_at_start = [0] #55
         solver.calc_lower_bound(vertex_length, fixed_at_start)
-        
         
         fixed_at_start = [0, 3, 1, 19] #42
         solver.calc_lower_bound(vertex_length, fixed_at_start)

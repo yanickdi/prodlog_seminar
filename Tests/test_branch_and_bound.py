@@ -12,8 +12,8 @@ from branch_and_bound import OrienteeringBranchAndBoundTree
 class TestOrienteeringBranchAndBoundTree(unittest.TestCase):
     def test_maximum_nodes(self):
         #data = read_xml_file('BundeslaenderTour_5_Knoten.xml')
-        data = read_xml_file('../Instanzen/BundeslaenderTour.xml')
-        #data = read_xml_file('../Instanzen/OesterreichTourC500.xml')
+        #data = read_xml_file('../Instanzen/BundeslaenderTour.xml')
+        data = read_xml_file('../Instanzen/OesterreichTourC500.xml')
         bnb = OrienteeringBranchAndBoundTree(data)
         bnb.solve()
 

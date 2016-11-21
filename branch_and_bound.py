@@ -75,7 +75,6 @@ class OrienteeringBranchAndBoundTree:
         else:
             #infeasible
             return False
-        #todo: sum of bla bla <= ..
             
     def _is_node_possible(self, node):
         # calculate the length already
