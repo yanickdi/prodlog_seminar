@@ -37,7 +37,7 @@ class OrienteeringBranchAndBoundTree:
 
         
     def _bound_at_node(self, node):
-        """calculates a lower bound for this node and decide if we should branch at this node
+        """calculates a lower bound for this node and decides if we should branch at this node
         Returns True if we shall branch - False if this node is not valid or its best solution would be worse
         than our actual best solution (the upper bound)"""
         if not self._is_node_possible(node):
@@ -46,7 +46,7 @@ class OrienteeringBranchAndBoundTree:
         if node._vertex_length - len(node._fixed_at_start) > 0:
             lower_bound = self._lb_solver.calc_lower_bound(node._vertex_length, node._fixed_at_start)
             #lower_bound = self._calc_lower_bound(node)
-            if lower_bound is not False and lower_bound > self._upper_bound * (1):
+            if lower_bound is not False and lower_bound > self._upper_bound * (1.05):
                 # since we have a maximize problem
                 return True
             else:
