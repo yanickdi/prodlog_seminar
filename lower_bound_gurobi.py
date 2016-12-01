@@ -12,7 +12,7 @@ class LowerBoundSolver:
         n, stars, matrix = len(data['matrix']), data['star_list'], data['matrix']
         # Create variables
         x = [[model.addVar(vtype=GRB.CONTINUOUS, ub=1.0, lb=0.0) for j in range(n)] for i in range(n)]
-        y = [model.addVar(vtype=GRB.CONTINUOUS, ub=1.0) for i in range(n)]
+        y = [model.addVar(vtype=GRB.CONTINUOUS, ub=1.0, lb=0.0) for i in range(n)]
         #y = model.addVars(n, vtype=GRB.CONTINUOUS, ub=1.0, name="y")
         #x = model.addVars(n,n, vtype=GRB.CONTINUOUS, ub=1.0, lb=0.0, name="x")
         # Integrate new variables
@@ -49,8 +49,9 @@ class LowerBoundSolver:
         for pre, actual in paths:
             new_con = self._model.addConstr(x[pre][actual] == 1)
             new_constraints.append(new_con)
+        # for all fixed, fix y[i] = 1
         new_constraints.append(
-            self._model.addConstr( quicksum([y[i] for i in range(len(y))]) <= vertex_length))
+            self._model.addConstr( quicksum([y[i] for i in range(len(y))]) == vertex_length))
         
         
         self._model.optimize()
@@ -62,6 +63,6 @@ class LowerBoundSolver:
         if self._model.status == GRB.Status.OPTIMAL:
             #print('Optimal objective: %g' % self._model.objVal)
             return self._model.objVal
-        else:# model.status == GRB.Status.INFEASIBLE:
+        else:# model.status == GRB.Status.INFEASIBLE: #TODO: hier status gscheiter ueberpruefen
             #print('Optimization was stopped with status %d' % self._model.status)
             return False

@@ -128,8 +128,8 @@ class OrienteeringBranchAndBoundTree:
     def _calc_upper_bound(self):
         result = lib.greedy_nearest_neighbour_heuristic(
             {'matrix' : self._matrix, 'star_list': self._stars, 'c_limit': self._limit})
-        #self._upper_bound = result['stars']
-        self._upper_bound = 0
+        self._upper_bound = result['stars']
+        #self._upper_bound = 0
         print('Starting with upper bound {}: Stars'.format(self._upper_bound))
         self._best_solution = result
             
