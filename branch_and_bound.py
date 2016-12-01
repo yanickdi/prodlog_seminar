@@ -24,7 +24,7 @@ class OrienteeringBranchAndBoundTree:
             node = queue.pop()
             count += 1
             if count % 10000 == 0:
-                print(count)
+                print('Iteration {}'.format(count))
             shallBranch = True # default: branch (at root node e.g.)
             if node._parent != None:
                 shallBranch = self._bound_at_node(node)
@@ -68,8 +68,7 @@ class OrienteeringBranchAndBoundTree:
             stars += self._stars[actual] #bug: the last star will be counted twice, but its ok, its alwas zero
         if length <= self._limit:
             if stars > self._upper_bound:
-                print('updated upper bound: ', stars)
-                print(node)
+                print('Better solution found, updated upper bound: {} stars ({}) '.format(stars, node))
                 self._upper_bound = stars
             return stars
         else:
@@ -129,9 +128,9 @@ class OrienteeringBranchAndBoundTree:
     def _calc_upper_bound(self):
         result = lib.greedy_nearest_neighbour_heuristic(
             {'matrix' : self._matrix, 'star_list': self._stars, 'c_limit': self._limit})
-        self._upper_bound = result['stars']
-        #self._upper_bound = 0
-        print(self._upper_bound)
+        #self._upper_bound = result['stars']
+        self._upper_bound = 0
+        print('Starting with upper bound {}: Stars'.format(self._upper_bound))
         self._best_solution = result
             
         
@@ -163,4 +162,4 @@ class OrienteeringBranchAndBoundTree:
             if self._parent is None:
                 return 'ROOT'
             else:
-                return '-'.join('{}'.format(elem+0) for elem in self._fixed_at_start)  + 'x'*(self._vertex_length - len(self._fixed_at_start))
+                return '-'.join('{}'.format(elem+1) for elem in self._fixed_at_start+[0])  + 'x'*(self._vertex_length - len(self._fixed_at_start))
