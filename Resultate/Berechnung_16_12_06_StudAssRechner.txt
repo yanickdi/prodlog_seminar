@@ -1,0 +1,117 @@
+Starte Berechnungen am 2016-12-06 15:34:42.539926
+Einige Informationen zum PC:
+PC-Name : ampl-client
+Maschine : x86_64
+Prozessor : x86_64
+Python-Build : ('default', 'Nov 17 2016 17:05:23')
+System : Linux
+uname : uname_result(system='Linux', node='ampl-client', release='4.4.0-51-generic', version='#72-Ubuntu SMP Thu Nov 24 18:29:54 UTC 2016', machine='x86_64', processor='x86_64')
+Starte Solver fuer filename: BundeslaenderTour.xml
+
+greedy_tour : {'tour': [0, 1, 3, 4, 2, 0], 'length': 593.9000000000001, 'stars': 13}
+name : Bundesländer-Tour
+objective : 12.994314
+solver_time : 0h 0min 0sek 18.254ms
+stars_collected : 13
+tour : [(0, 3), (3, 4), (4, 2), (2, 1), (1, 0)]
+tour_length : 568.6
+tour_named : [('Flughafen Wien', 'Eisenstadt'), ('Eisenstadt', 'Graz'), ('Graz', 'Sankt Pölten'), ('Sankt Pölten', 'Wien'), ('Wien', 'Flughafen Wien')]
+visited_cities : [0, 3, 4, 2, 1]
+
+
+
+
+
+
+-------
+Starte Solver fuer filename: OesterreichTourC500.xml
+
+greedy_tour : {'tour': [0, 2, 1, 3, 12, 19, 15, 0], 'length': 476.3, 'stars': 22}
+name : Österreich-TourC500
+objective : 21.995377
+solver_time : 0h 0min 1sek 829.096ms
+stars_collected : 22
+tour : [(0, 15), (15, 12), (12, 19), (19, 1), (1, 2), (2, 3), (3, 0)]
+tour_length : 462.3
+tour_named : [('Flughafen Wien', 'Neusiedlersee (Neusiedl am See)'), ('Neusiedlersee (Neusiedl am See)', 'Innenstadt von Graz'), ('Innenstadt von Graz', 'Schloss Eggenberg'), ('Schloss Eggenberg', 'Schloss Schönbrunn'), ('Schloss Schönbrunn', 'Hofburg'), ('Hofburg', 'Hundertwasserhaus'), ('Hundertwasserhaus', 'Flughafen Wien')]
+visited_cities : [0, 15, 12, 19, 1, 2, 3]
+
+
+
+
+
+
+-------
+Starte Solver fuer filename: OesterreichTourC1000.xml
+
+greedy_tour : {'tour': [0, 2, 1, 3, 12, 19, 6, 10, 17, 5, 8, 9, 18, 11, 4, 0], 'length': 954.3000000000001, 'stars': 52}
+name : Österreich-TourC1000
+objective : 52.990722
+solver_time : 0h 0min 14sek 840.463ms
+stars_collected : 53
+tour : [(0, 15), (15, 12), (12, 19), (19, 18), (18, 9), (9, 8), (8, 17), (17, 5), (5, 6), (6, 10), (10, 11), (11, 4), (4, 1), (1, 2), (2, 3), (3, 0)]
+tour_length : 927.8000000000001
+tour_named : [('Flughafen Wien', 'Neusiedlersee (Neusiedl am See)'), ('Neusiedlersee (Neusiedl am See)', 'Innenstadt von Graz'), ('Innenstadt von Graz', 'Schloss Eggenberg'), ('Schloss Eggenberg', 'Dachstein-Südwandbahn'), ('Dachstein-Südwandbahn', 'Schloss Hellbrunn'), ('Schloss Hellbrunn', 'Innenstadt von Salzburg'), ('Innenstadt von Salzburg', 'St. Wolfgang im Salzkammergut'), ('St. Wolfgang im Salzkammergut', 'Bad Ischl'), ('Bad Ischl', 'Hallstatt'), ('Hallstatt', 'Krippenstein-Höhlen'), ('Krippenstein-Höhlen', 'Stift Admont'), ('Stift Admont', 'Stift Melk'), ('Stift Melk', 'Schloss Schönbrunn'), ('Schloss Schönbrunn', 'Hofburg'), ('Hofburg', 'Hundertwasserhaus'), ('Hundertwasserhaus', 'Flughafen Wien')]
+visited_cities : [0, 15, 12, 19, 18, 9, 8, 17, 5, 6, 10, 11, 4, 1, 2, 3]
+
+
+
+
+
+
+-------
+Starte Solver fuer filename: OesterreichTourC1000AllProfits1.xml
+
+greedy_tour : {'tour': [0, 3, 2, 1, 15, 4, 11, 6, 10, 5, 17, 8, 9, 18, 0], 'length': 948.8, 'stars': 13}
+name : Österreich-TourC1000AllProfits
+objective : 14.990634
+solver_time : 0h 0min 3sek 101.045ms
+stars_collected : 15
+tour : [(0, 3), (3, 1), (1, 2), (2, 4), (4, 11), (11, 10), (10, 6), (6, 5), (5, 17), (17, 8), (8, 9), (9, 18), (18, 19), (19, 12), (12, 15), (15, 0)]
+tour_length : 936.5999999999999
+tour_named : [('Flughafen Wien', 'Hundertwasserhaus'), ('Hundertwasserhaus', 'Schloss Schönbrunn'), ('Schloss Schönbrunn', 'Hofburg'), ('Hofburg', 'Stift Melk'), ('Stift Melk', 'Stift Admont'), ('Stift Admont', 'Krippenstein-Höhlen'), ('Krippenstein-Höhlen', 'Hallstatt'), ('Hallstatt', 'Bad Ischl'), ('Bad Ischl', 'St. Wolfgang im Salzkammergut'), ('St. Wolfgang im Salzkammergut', 'Innenstadt von Salzburg'), ('Innenstadt von Salzburg', 'Schloss Hellbrunn'), ('Schloss Hellbrunn', 'Dachstein-Südwandbahn'), ('Dachstein-Südwandbahn', 'Schloss Eggenberg'), ('Schloss Eggenberg', 'Innenstadt von Graz'), ('Innenstadt von Graz', 'Neusiedlersee (Neusiedl am See)'), ('Neusiedlersee (Neusiedl am See)', 'Flughafen Wien')]
+visited_cities : [0, 3, 1, 2, 4, 11, 10, 6, 5, 17, 8, 9, 18, 19, 12, 15]
+
+
+
+
+
+
+-------
+Starte Solver fuer filename: OesterreichTourC15000.xml
+
+greedy_tour : {'tour': [0, 2, 1, 3, 12, 19, 6, 10, 17, 5, 8, 9, 18, 11, 20, 7, 0], 'length': 1471.3000000000002, 'stars': 56}
+name : Österreich-TourC1500
+objective : 62.985121
+solver_time : 0h 0min 1sek 477.548ms
+stars_collected : 63
+tour : [(0, 15), (15, 19), (19, 12), (12, 20), (20, 7), (7, 13), (13, 16), (16, 8), (8, 9), (9, 17), (17, 5), (5, 10), (10, 6), (6, 18), (18, 11), (11, 4), (4, 1), (1, 2), (2, 3), (3, 0)]
+tour_length : 1487.8999999999999
+tour_named : [('Flughafen Wien', 'Neusiedlersee (Neusiedl am See)'), ('Neusiedlersee (Neusiedl am See)', 'Schloss Eggenberg'), ('Schloss Eggenberg', 'Innenstadt von Graz'), ('Innenstadt von Graz', 'Wörthersee (Klagenfurt am Wörthersee)'), ('Wörthersee (Klagenfurt am Wörthersee)', 'Kaiser-Franz-Josefs-Höhe'), ('Kaiser-Franz-Josefs-Höhe', 'Schloss Ambras'), ('Schloss Ambras', 'Festung Kufstein'), ('Festung Kufstein', 'Innenstadt von Salzburg'), ('Innenstadt von Salzburg', 'Schloss Hellbrunn'), ('Schloss Hellbrunn', 'St. Wolfgang im Salzkammergut'), ('St. Wolfgang im Salzkammergut', 'Bad Ischl'), ('Bad Ischl', 'Krippenstein-Höhlen'), ('Krippenstein-Höhlen', 'Hallstatt'), ('Hallstatt', 'Dachstein-Südwandbahn'), ('Dachstein-Südwandbahn', 'Stift Admont'), ('Stift Admont', 'Stift Melk'), ('Stift Melk', 'Schloss Schönbrunn'), ('Schloss Schönbrunn', 'Hofburg'), ('Hofburg', 'Hundertwasserhaus'), ('Hundertwasserhaus', 'Flughafen Wien')]
+visited_cities : [0, 15, 19, 12, 20, 7, 13, 16, 8, 9, 17, 5, 10, 6, 18, 11, 4, 1, 2, 3]
+
+
+
+
+
+
+-------
+Starte Solver fuer filename: Welttour.xml
+
+greedy_tour : {'tour': [0, 14, 15, 16, 18, 17, 8, 29, 3, 2, 30, 26, 7, 6, 4, 28, 27, 0], 'length': 29763.009466547242, 'stars': 74}
+name : Welttour
+objective : 85.71278288932723
+solver_time : 0h 7min 30sek 209.069ms
+stars_collected : 86
+tour : [(0, 29), (29, 8), (8, 23), (23, 2), (2, 30), (30, 3), (3, 4), (4, 6), (6, 26), (26, 7), (7, 28), (28, 20), (20, 27), (27, 19), (19, 17), (17, 18), (18, 16), (16, 15), (15, 13), (13, 14), (14, 0)]
+tour_length : 28721.71106727698
+tour_named : [('Tokio', 'Sankt Petersburg'), ('Sankt Petersburg', 'Moskau'), ('Moskau', 'Kiew'), ('Kiew', 'Wien'), ('Wien', 'Graz'), ('Graz', 'Prag'), ('Prag', 'London'), ('London', 'Paris'), ('Paris', 'Venedig'), ('Venedig', 'Rom'), ('Rom', 'Istanbul'), ('Istanbul', 'Kairo'), ('Kairo', 'Jerusalem'), ('Jerusalem', 'Dubai'), ('Dubai', 'Kathmandu'), ('Kathmandu', 'Lhasa'), ('Lhasa', 'Rangun'), ('Rangun', 'Bangkok'), ('Bangkok', 'Hongkong'), ('Hongkong', 'Shanghai'), ('Shanghai', 'Tokio')]
+visited_cities : [0, 29, 8, 23, 2, 30, 3, 4, 6, 26, 7, 28, 20, 27, 19, 17, 18, 16, 15, 13, 14]
+
+
+
+
+
+
+-------
+Letzte Berechnung fertig um 2016-12-06 15:42:34.211526
