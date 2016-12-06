@@ -1,7 +1,55 @@
 import sys
 import datetime
+import platform
 from gurobipy import *
 from lib import read_xml_file, greedy_nearest_neighbour_heuristic
+
+
+def main():
+    print('Starte Berechnungen am {}'.format(datetime.datetime.now()))
+    print('Einige Informationen zum PC:')
+    print_pc_info()
+    FILES = [
+        'BundeslaenderTour.xml', 'OesterreichTourC500.xml', 'OesterreichTourC1000.xml', 
+        'OesterreichTourC1000AllProfits1.xml', 'OesterreichTourC15000.xml', 'Welttour.xml']
+    DIR = 'Instanzen'
+    
+    for filename in FILES:
+        print('Starte Solver fuer filename: {}\n'.format(filename))
+        filename = os.path.join(DIR, filename)
+        solveInstanceFile(filename, debug=False)
+        print('-------')
+        
+    print('Letzte Berechnung fertig um {}'.format(datetime.datetime.now()))
+
+        
+def solveInstanceFile(xml_file, debug=False):
+    data = read_xml_file(xml_file)
+    data = read_xml_file(xml_file)
+    op = OrienteeringProblem(data, debug)
+    # start optimization
+    sol_found = op.solve()
+    if not sol_found:
+        print('Error, no (valid) solution found')
+        return
+    # retrieve solution
+    sol = op.getSolution()
+    for key in sorted(sol):
+        print('{} : {}'.format(key, sol[key]))
+    print('\n'*5)
+    
+def print_pc_info():
+    infos = [
+    ('PC-Name', platform.node()),
+    ('Maschine', platform.machine()),
+    ('Prozessor', platform.processor()),
+    ('Python-Build', platform.python_build()),
+    ('System', platform.system()),
+    ('uname', platform.uname())]
+    for info in infos:
+        print(info[0], ':', info[1])
+    
+        
 
 class OrienteeringProblem():
     def __init__(self, data, debug=False):
@@ -84,6 +132,16 @@ class OrienteeringProblem():
             tour.append((act_city, next_city))
             act_city = next_city
         return tour
+        
+    def _make_time_string(self, start, end):
+        delta = end - start
+        seconds = delta.seconds
+        milli_seconds = delta.microseconds / 1000
+        minutes = seconds // 60
+        hours = minutes // 60
+        seconds = seconds % 60
+        minutes = minutes % 60
+        return('{}h {}min {}sek {}ms'.format(hours, minutes, seconds, milli_seconds))
     
     def getSolution(self):
         sol = {}
@@ -92,32 +150,12 @@ class OrienteeringProblem():
         sol['visited_cities'] = [tup[0] for tup in self.tour]
         sol['stars_collected'] = sum([self.data['star_list'][city] for city in sol['visited_cities']])
         sol['tour_length'] = sum([self.data['matrix'][i][j] * int(self.x[i][j].X) for i in range(self.n) for j in range(self.n)])
-        sol['solver_time'] = get_time_string(self.time_start, self.time_end)
+        sol['solver_time'] = self._make_time_string(self.time_start, self.time_end)
         sol['greedy_tour'] = greedy_nearest_neighbour_heuristic(self.data)
+        sol['tour_named'] = [(self.data['city_names'][city_from], self.data['city_names'][city_to]) for city_from, city_to in sol['tour']]
+        sol['name'] = self.data['name']
         return sol
-
-def main():
-    #data = read_xml_file('Instanzen/BundeslaenderTour.xml')
-    #data = read_xml_file('Instanzen/OesterreichTourC500.xml')
-    #data = read_xml_file('Instanzen/OesterreichTourC15000.xml')
-    data = read_xml_file('Instanzen/Welttour.xml')
-    op = OrienteeringProblem(data, debug=False)
-    # start optimization
-    op.solve()
-    # retrieve solution
-    sol = op.getSolution()
-    for key in sorted(sol):
-        print('{} : {}'.format(key, sol[key]))
     
-def get_time_string(start, end):
-    delta = end - start
-    seconds = delta.seconds
-    milli_seconds = delta.microseconds / 1000
-    minutes = seconds // 60
-    hours = minutes // 60
-    seconds = seconds % 60
-    minutes = minutes % 60
-    return('{}h {}min {}sek {}ms'.format(hours, minutes, seconds, milli_seconds))
 
 if __name__ == '__main__':
     main()

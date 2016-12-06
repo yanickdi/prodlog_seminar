@@ -84,6 +84,9 @@ def write_xml_file(outfile, data):
         for j, elem in enumerate(line):
             elemNode = SubElement(distancesNode, 'distance',
             attrib={'from' : str(i), 'to' : str(j), 'value' : str(data['matrix'][i][j])})
+    # city names:
+    starsNode = SubElement(root, 'Cities')
+    [SubElement(starsNode, 'city', attrib={'name' : city, 'id' : str(i)}) for i, city in enumerate(data['city_names'])]
     # stars:
     starsNode = SubElement(root, 'Stars')
     [SubElement(starsNode, 'star', attrib={'stars' : str(star), 'node' : str(i)}) for i, star in enumerate(data['star_list'])]
@@ -109,6 +112,13 @@ def read_xml_file(infile):
         j = int(distanceNode.get('to'))
         dist = float(distanceNode.get('value'))
         data['matrix'][i][j] = dist
+    #city_names
+    data['city_names'] = ['?'] * n
+    for cityNode in root.find('Cities'):
+        id = int(cityNode.get('id'))
+        city_name = cityNode.get('name')
+        data['city_names'][id] = city_name
+    #stars
     data['star_list'] = [0] * n
     for starNode in root.find('Stars'):
         i = int(starNode.get('node'))

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<Instance limit="1500" name="Oesterreich-TourC1500" number_of_nodes="21">
+<Instance limit="1500" name="Österreich-TourC1500" number_of_nodes="21">
     <Distances>
         <distance from="0" to="0" value="0.0"/>
         <distance from="0" to="1" value="30.7"/>
@@ -443,6 +443,29 @@
         <distance from="20" to="19" value="135.0"/>
         <distance from="20" to="20" value="0.0"/>
     </Distances>
+    <Cities>
+        <city id="0" name="Flughafen Wien"/>
+        <city id="1" name="Schloss Schönbrunn"/>
+        <city id="2" name="Hofburg"/>
+        <city id="3" name="Hundertwasserhaus"/>
+        <city id="4" name="Stift Melk"/>
+        <city id="5" name="Bad Ischl"/>
+        <city id="6" name="Hallstatt"/>
+        <city id="7" name="Kaiser-Franz-Josefs-Höhe"/>
+        <city id="8" name="Innenstadt von Salzburg"/>
+        <city id="9" name="Schloss Hellbrunn"/>
+        <city id="10" name="Krippenstein-Höhlen"/>
+        <city id="11" name="Stift Admont"/>
+        <city id="12" name="Innenstadt von Graz"/>
+        <city id="13" name="Schloss Ambras"/>
+        <city id="14" name="Bodensee (Bregenz)"/>
+        <city id="15" name="Neusiedlersee (Neusiedl am See)"/>
+        <city id="16" name="Festung Kufstein"/>
+        <city id="17" name="St. Wolfgang im Salzkammergut"/>
+        <city id="18" name="Dachstein-Südwandbahn"/>
+        <city id="19" name="Schloss Eggenberg"/>
+        <city id="20" name="Wörthersee (Klagenfurt am Wörthersee)"/>
+    </Cities>
     <Stars>
         <star node="0" stars="0"/>
         <star node="1" stars="5"/>

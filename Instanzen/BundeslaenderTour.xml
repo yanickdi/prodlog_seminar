@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<Instance limit="600" name="Bundeslaender-Tour" number_of_nodes="10">
+<Instance limit="600" name="Bundesländer-Tour" number_of_nodes="10">
     <Distances>
         <distance from="0" to="0" value="0.0"/>
         <distance from="0" to="1" value="19.0"/>
@@ -102,6 +102,18 @@
         <distance from="9" to="8" value="190.0"/>
         <distance from="9" to="9" value="0.0"/>
     </Distances>
+    <Cities>
+        <city id="0" name="Flughafen Wien"/>
+        <city id="1" name="Wien"/>
+        <city id="2" name="Sankt Pölten"/>
+        <city id="3" name="Eisenstadt"/>
+        <city id="4" name="Graz"/>
+        <city id="5" name="Linz"/>
+        <city id="6" name="Klagenfurt am Wörthersee"/>
+        <city id="7" name="Salzburg"/>
+        <city id="8" name="Innsbruck"/>
+        <city id="9" name="Bregenz"/>
+    </Cities>
     <Stars>
         <star node="0" stars="0"/>
         <star node="1" stars="5"/>
